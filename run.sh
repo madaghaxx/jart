@@ -1,3 +1,3 @@
 #!/bin/bash
-javac -d . Main.java src/*.java
-java Main
+javac -d ./build Main.java src/*.java
+java -cp  build Main
