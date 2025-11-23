@@ -1,9 +1,9 @@
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.*;
 import java.util.List;
+import javax.swing.*;
 
 class MainLoop extends JPanel {
     private List<Vehicule> vehicles;
@@ -106,15 +106,23 @@ class MainLoop extends JPanel {
 
         if (!Vehicule.someOnIntersect(vehicles)) {
             int maxLen = Math.max(Math.max(leftLen, rightLen), Math.max(upLen, downLen));
+            // error collesion was here 
+            String greenDirection = null;
+            if (maxLen == leftLen)
+                greenDirection = "left";
+            else if (maxLen == rightLen)
+                greenDirection = "right";
+            else if (maxLen == upLen)
+                greenDirection = "up";
+            else if (maxLen == downLen)
+                greenDirection = "down";
 
+            
             for (Map.Entry<String, Direct> entry : directions.entrySet()) {
                 String key = entry.getKey();
                 Direct direct = entry.getValue();
 
-                if ((key.equals("left") && maxLen == leftLen) ||
-                        (key.equals("right") && maxLen == rightLen) ||
-                        (key.equals("up") && maxLen == upLen) ||
-                        (key.equals("down") && maxLen == downLen)) {
+                if (key.equals(greenDirection)) {
                     direct.setState(true);
                     direct.setColor(Color.GREEN);
                 } else {
